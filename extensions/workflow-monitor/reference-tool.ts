@@ -1,7 +1,9 @@
 import { readFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { accessSync } from "node:fs";
+
+// extensions/workflow-monitor/reference-tool.ts is 2 levels below package root
+const PACKAGE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 const TOPIC_MAP: Record<string, string> = {
   "tdd-rationalizations": "skills/test-driven-development/reference/rationalizations.md",
@@ -12,27 +14,13 @@ const TOPIC_MAP: Record<string, string> = {
 
 export const REFERENCE_TOPICS = Object.keys(TOPIC_MAP);
 
-function getPackageRoot(): string {
-  let dir = dirname(fileURLToPath(import.meta.url));
-  while (dir !== "/") {
-    try {
-      accessSync(resolve(dir, "package.json"));
-      return dir;
-    } catch {
-      dir = dirname(dir);
-    }
-  }
-  return resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-}
-
 export async function loadReference(topic: string): Promise<string> {
   const relativePath = TOPIC_MAP[topic];
   if (!relativePath) {
     return `Unknown topic: "${topic}". Available topics: ${REFERENCE_TOPICS.join(", ")}`;
   }
 
-  const root = getPackageRoot();
-  const fullPath = resolve(root, relativePath);
+  const fullPath = resolve(PACKAGE_ROOT, relativePath);
 
   try {
     return await readFile(fullPath, "utf-8");
