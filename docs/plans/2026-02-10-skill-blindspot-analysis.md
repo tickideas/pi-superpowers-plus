@@ -69,11 +69,39 @@ This document captures the findings for future work. Blindspots are categorized 
 - Order tasks so each task's dependencies are completed by earlier tasks
 - If plan exceeds ~8 tasks, consider splitting into phases with a checkpoint between them
 
+### 7. Entire workflow — No documentation stage
+
+**The scenario:** You finish implementing a feature. Tests pass. You merge or create a PR. The README, CHANGELOG, API docs, and inline documentation are all stale. Nobody prompted you to update them.
+
+**What's missing:** There is no documentation step anywhere in the post-implementation flow. The full chain: brainstorming writes a design doc, writing-plans writes a plan doc, but after implementation completes, finishing-a-development-branch goes straight from "tests pass" to the 4 options (merge/PR/keep/discard). Neither executing-plans nor SDD have a documentation step. Zero skills prompt "update the docs."
+
+At minimum, finishing-a-development-branch should prompt before presenting options: "Does this work require documentation updates? (README, CHANGELOG, API docs, inline docs)." This doesn't need to be a full skill — just a checkpoint that forces the question.
+
+**Where it belongs:** finishing-a-development-branch (Step 1.5, between verify tests and present options). Could also be a final task that writing-plans includes in every plan.
+
+### 8. Entire workflow — No learnings capture
+
+**The scenario:** You just spent 3 days implementing a feature. You discovered that the ORM doesn't handle nested transactions, that the test framework needs a specific flag for async tests, that the deployment pipeline requires manual cache invalidation. None of this gets recorded anywhere. Next time, you (or another agent) will rediscover it from scratch.
+
+**What's missing:** No skill prompts for capturing what was learned during implementation — surprises, patterns discovered, things that would be done differently, codebase-specific knowledge. The pi memory tool has a "learnings" file specifically for this, but nothing in the workflow feeds into it.
+
+This could be part of the documentation stage (a combined "document and reflect" checkpoint) or standalone. The key question: what was surprising, what would you do differently, what codebase knowledge should persist?
+
+**Where it belongs:** Could be part of the documentation stage in finishing-a-development-branch, or a brief standalone step. The natural moment is right after implementation completes and before merge — you have maximum context about what you just learned.
+
+### 9. Workflow rigidity — Worktrees assumed for all work
+
+**The scenario:** Small project, quick fix, solo developer. executing-plans and SDD both mark `/skill:using-git-worktrees` as REQUIRED. But for a 2-task bugfix on a personal project, creating a worktree is ceremony that adds no value. Sometimes you just want to branch and work in the same directory.
+
+**What's missing:** No non-worktree path. Both execution skills hardcode worktrees as REQUIRED. brainstorming says "Use `/skill:using-git-worktrees` to create isolated workspace" as the only option. There's no "just branch" alternative for simpler workflows.
+
+**Suggested fix:** Change REQUIRED to recommended-with-escape-hatch. Something like: "Use `/skill:using-git-worktrees` for isolated workspace (recommended). For small changes, branching in the current directory is acceptable with human approval." The key is: worktrees are the default, but not a gate.
+
 ---
 
 ## Tier 2: Minor Gaps (real but less frequent)
 
-### 7. brainstorming — No "check existing solutions" step
+### 10. brainstorming — No "check existing solutions" step
 
 **The scenario:** Human says "I need a caching layer." You design one from scratch. The project already uses Redis, or there's a library that does exactly this.
 
@@ -81,7 +109,7 @@ This document captures the findings for future work. Blindspots are categorized 
 
 **Suggested fix:** Add to "Understanding the idea" bullets: "Check if the codebase or ecosystem already solves this before designing from scratch."
 
-### 8. requesting-code-review — Integration claim mismatch
+### 11. requesting-code-review — Integration claim mismatch
 
 **The scenario:** The "Integration with Workflows" section says "Executing Plans: Review after each batch (3 tasks)." But executing-plans uses *human* review between batches, not dispatched code-reviewer subagents.
 
@@ -89,7 +117,7 @@ This document captures the findings for future work. Blindspots are categorized 
 
 **Suggested fix:** Either correct the integration section to say executing-plans uses human review (and requesting-code-review is optional there), or update executing-plans to actually dispatch a reviewer. The former is simpler and more accurate.
 
-### 9. SDD — Subagent failure escalation
+### 12. SDD — Subagent failure escalation
 
 **The scenario:** Implementer subagent fails Task 3. You dispatch a fix subagent. Fix subagent also fails. Now what?
 
@@ -127,6 +155,18 @@ These are not blindspots but dead weight identified during the audit:
 
 ### finishing-a-development-branch
 - **"Common Mistakes" and "Red Flags"** overlap ~60%. Merge into one section.
+
+---
+
+## Future Scope (parked)
+
+The following expansions have been considered but are deliberately deferred until the current skill set is optimized within its existing constraints:
+
+- **Acceptance Test-Driven Development (ATDD)** — Write acceptance tests before unit tests to ensure you're building the right thing. Would sit between brainstorming/writing-plans and the implementation skills.
+- **Design review stage** — Formal review of the design doc before writing the plan. Currently brainstorming validates incrementally with the human, but there's no structured review checkpoint.
+- **Implementation plan review stage** — Review of the plan before execution begins. executing-plans Step 1 does "review critically" but it's self-review, not a dispatched reviewer.
+
+**Rationale for deferral:** The core loop (brainstorm → plan → execute → review → finish) has concrete gaps that should be fixed first. Adding stages before the existing stages are solid creates complexity on a weak foundation. Optimize the current constraints, then expand.
 
 ---
 
