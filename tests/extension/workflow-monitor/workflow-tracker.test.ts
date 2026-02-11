@@ -42,3 +42,34 @@ describe("WorkflowTracker", () => {
     expect(tracker.getState().artifacts.brainstorm).toBe("docs/plans/2026-02-10-x-design.md");
   });
 });
+
+describe("WorkflowTracker detection helpers", () => {
+  test("detects /skill:brainstorming and advances to brainstorm", () => {
+    const tracker = new WorkflowTracker();
+    const changed = tracker.onInputText("/skill:brainstorming");
+    expect(changed).toBe(true);
+    expect(tracker.getState().currentPhase).toBe("brainstorm");
+  });
+
+  test("detects writing a design doc artifact and advances to brainstorm", () => {
+    const tracker = new WorkflowTracker();
+    tracker.onFileWritten("docs/plans/2026-02-10-foo-design.md");
+    const s = tracker.getState();
+    expect(s.currentPhase).toBe("brainstorm");
+    expect(s.artifacts.brainstorm).toBe("docs/plans/2026-02-10-foo-design.md");
+  });
+
+  test("detects writing an implementation plan artifact and advances to plan", () => {
+    const tracker = new WorkflowTracker();
+    tracker.onFileWritten("docs/plans/2026-02-11-foo-implementation.md");
+    const s = tracker.getState();
+    expect(s.currentPhase).toBe("plan");
+    expect(s.artifacts.plan).toBe("docs/plans/2026-02-11-foo-implementation.md");
+  });
+
+  test("detects plan_tracker init and advances to execute", () => {
+    const tracker = new WorkflowTracker();
+    tracker.onPlanTrackerInit();
+    expect(tracker.getState().currentPhase).toBe("execute");
+  });
+});

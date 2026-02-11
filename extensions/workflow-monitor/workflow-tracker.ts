@@ -37,6 +37,10 @@ function emptyState(): WorkflowTrackerState {
   return { phases, currentPhase: null, artifacts, prompted };
 }
 
+const PLANS_DIR_RE = /^docs\/plans\//;
+const DESIGN_RE = /-design\.md$/;
+const IMPLEMENTATION_RE = /-implementation\.md$/;
+
 export class WorkflowTracker {
   private state: WorkflowTrackerState = emptyState();
 
@@ -100,5 +104,44 @@ export class WorkflowTracker {
     if (this.state.prompted[phase]) return false;
     this.state.prompted[phase] = true;
     return true;
+  }
+
+  onInputText(text: string): boolean {
+    const trimmed = text.trim();
+    if (!trimmed.startsWith("/skill:")) return false;
+
+    const skill = trimmed.slice("/skill:".length).split(/\s+/)[0];
+    if (skill === "brainstorming") return this.advanceTo("brainstorm");
+    if (skill === "writing-plans") return this.advanceTo("plan");
+    if (skill === "executing-plans" || skill === "subagent-driven-development") {
+      return this.advanceTo("execute");
+    }
+    if (skill === "verification-before-completion") return this.advanceTo("verify");
+    if (skill === "requesting-code-review") return this.advanceTo("review");
+    if (skill === "finishing-a-development-branch") return this.advanceTo("finish");
+
+    return false;
+  }
+
+  onFileWritten(path: string): boolean {
+    if (!PLANS_DIR_RE.test(path)) return false;
+
+    if (DESIGN_RE.test(path)) {
+      const changedArtifact = this.recordArtifact("brainstorm", path);
+      const changedPhase = this.advanceTo("brainstorm");
+      return changedArtifact || changedPhase;
+    }
+
+    if (IMPLEMENTATION_RE.test(path)) {
+      const changedArtifact = this.recordArtifact("plan", path);
+      const changedPhase = this.advanceTo("plan");
+      return changedArtifact || changedPhase;
+    }
+
+    return false;
+  }
+
+  onPlanTrackerInit(): boolean {
+    return this.advanceTo("execute");
   }
 }
