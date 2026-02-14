@@ -104,7 +104,8 @@ export function createWorkflowHandler(): WorkflowHandler {
             debug.onTestPassed();
           } else if (!excludeFromDebug) {
             debugFailStreak += 1;
-            if (debugFailStreak >= 2) {
+            const tddPhase = tdd.getPhase();
+            if (debugFailStreak >= 2 && tddPhase === "idle") {
               debug.onTestFailed();
             }
           }
