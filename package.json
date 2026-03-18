@@ -11,10 +11,14 @@
     "check": "biome check . && vitest run"
   },
   "license": "MIT",
-  "author": "coctostan",
+  "author": "tickideas",
   "repository": {
     "type": "git",
-    "url": "https://github.com/coctostan/pi-superpowers-plus.git"
+    "url": "https://github.com/tickideas/pi-superpowers-plus.git"
+  },
+  "homepage": "https://github.com/tickideas/pi-superpowers-plus",
+  "bugs": {
+    "url": "https://github.com/tickideas/pi-superpowers-plus/issues"
   },
   "files": [
     "extensions/",
