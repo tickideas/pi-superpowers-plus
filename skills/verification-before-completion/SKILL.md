@@ -7,8 +7,6 @@ description: Use when about to claim work is complete, fixed, or passing, before
 
 # Verification Before Completion
 
-## Overview
-
 Claiming work is complete without verification is dishonesty, not efficiency.
 
 **Core principle:** Evidence before claims, always.
@@ -19,7 +17,7 @@ If a tool result contains a ⚠️ workflow warning, stop immediately and addres
 
 ## Boundaries
 - Run verification commands: yes
-- Read code and output: yes
+- Read code and command output: yes
 - Edit source code: no
 
 ## The Iron Law
@@ -28,7 +26,7 @@ If a tool result contains a ⚠️ workflow warning, stop immediately and addres
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
-If you haven't run the verification command in this message, you cannot claim it passes.
+If you have not run the verification command in this message, you cannot claim that it passes.
 
 ## The Gate Function
 
@@ -54,8 +52,8 @@ Skip any step = lying, not verifying
 | Linter clean | Linter output: 0 errors | Partial check, extrapolation |
 | Build succeeds | Build command: exit 0 | Linter passing, logs look good |
 | Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle verified | Test passes once |
-| Agent completed | VCS diff shows changes | Agent reports "success" |
+| Regression test works | Red-green cycle or equivalent verified evidence | Test passes once |
+| Agent completed | VCS diff + independent verification | Agent reports "success" |
 | Requirements met | Line-by-line checklist | Tests passing |
 
 ## Rationalization Prevention
@@ -65,22 +63,22 @@ Skip any step = lying, not verifying
 | "Should work now" | RUN the verification |
 | "I'm confident" | Confidence ≠ evidence |
 | "Just this once" | No exceptions |
-| "Linter passed" | Linter ≠ compiler |
+| "Linter passed" | Linter ≠ build |
 | "Agent said success" | Verify independently |
 | "I'm tired" | Exhaustion ≠ excuse |
 | "Partial check is enough" | Partial proves nothing |
 | "Different words so rule doesn't apply" | Spirit over letter |
 
-## Red Flags - STOP
+## Red Flags — STOP
 
-- Using "should", "probably", "seems to"
-- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- About to commit/push/PR without verification
-- Trusting agent success reports without checking outputs
-- Relying on partial verification
-- Thinking "just this once"
-- Tired and wanting work over
-- **ANY wording implying success without fresh evidence**
+- using "should", "probably", or "seems to"
+- expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
+- about to commit/push/PR without verification
+- trusting agent success reports without checking outputs yourself
+- relying on partial verification
+- thinking "just this once"
+- being tired and wanting the work to be over
+- ANY wording that implies success without fresh evidence
 
 ## Key Patterns
 
@@ -90,10 +88,10 @@ Skip any step = lying, not verifying
 ❌ "Should pass now" / "Looks correct"
 ```
 
-**Regression tests (TDD Red-Green):**
+**Regression tests:**
 ```
-✅ Verify red → green sequence before claiming fix durability
-❌ "I added a regression test" (without proving red-green)
+✅ Demonstrate that the verification actually distinguishes broken from fixed behavior
+❌ "I added a regression test" without proving it would catch the bug
 ```
 
 **Build:**
@@ -104,33 +102,49 @@ Skip any step = lying, not verifying
 
 **Requirements:**
 ```
-✅ Check requirements one-by-one, report verified status
+✅ Check requirements one-by-one and report verified status
 ❌ "Tests pass, so everything is complete"
 ```
 
 **Agent delegation:**
 ```
-✅ Verify agent output + diffs + commands yourself
+✅ Verify agent output, diffs, and commands yourself
 ❌ Trust "agent says success"
 ```
+
+## Why This Matters
+
+False completion creates:
+- broken trust
+- shipped bugs
+- missed requirements
+- wasted time from rework and redirection
+
+Verification is not bureaucracy. It is how you prove your statements are true.
 
 ## When To Apply
 
 **ALWAYS before:**
-- ANY variation of success/completion claims
-- ANY expression of satisfaction
-- ANY positive statement about work state
-- Committing, PR creation, task completion
-- Moving to next task
-- Delegating to agents
+- any variation of success or completion claims
+- any expression of satisfaction about work state
+- committing, pushing, PR creation, or task completion
+- moving to the next task
+- reporting delegated work as complete
 
-**Rule applies to:**
-- Exact phrases and paraphrases
-- Implications of success
-- ANY communication suggesting completion/correctness
+**This applies to:**
+- exact phrases
+- paraphrases and synonyms
+- implications of success
+- any communication suggesting correctness or completion
 
 ## Enforcement
 
-The workflow-monitor extension monitors `git commit`, `git push`, and `gh pr create`. If you haven't run a passing test suite since your last source file edit, a warning is injected into the tool result. The warning clears automatically after a fresh passing test run.
+The workflow-monitor extension monitors `git commit`, `git push`, and `gh pr create`. If you have not run a passing verification command since the last relevant source edit, a warning is injected into the tool result. The warning clears automatically after a fresh passing verification run.
 
 When all verification passes, mark the verify phase complete: call `plan_tracker` with `{action: "update", status: "complete"}` for the current phase.
+
+## The Bottom Line
+
+No shortcuts for verification.
+
+Run the command. Read the output. Then claim the result.
