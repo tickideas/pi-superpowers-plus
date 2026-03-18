@@ -1,8 +1,8 @@
 # Spec Compliance Reviewer Prompt Template
 
-Use this template when dispatching a spec compliance reviewer subagent.
+Use this template when dispatching the `reviewer` subagent for spec compliance review.
 
-**Purpose:** Verify implementer built what was requested (nothing more, nothing less)
+**Purpose:** Verify the worker built what was requested (nothing more, nothing less)
 
 ```
 Dispatch a subagent with this prompt:
@@ -16,11 +16,11 @@ Dispatch a subagent with this prompt:
 
     ## What Implementer Claims They Built
 
-    [From implementer's report]
+    [From worker's report]
 
     ## CRITICAL: Do Not Trust the Report
 
-    The implementer finished suspiciously quickly. Their report may be incomplete,
+    The worker finished suspiciously quickly. Their report may be incomplete,
     inaccurate, or optimistic. You MUST verify everything independently.
 
     **DO NOT:**

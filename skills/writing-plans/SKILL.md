@@ -9,7 +9,7 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 Write comprehensive implementation plans assuming the engineer has zero context for the codebase and questionable taste. Document everything they need: which files to touch, what each file is responsible for, complete code where needed, tests to write, commands to run, and how to verify success. Plans should be DRY, YAGNI, TDD-oriented, and broken into bite-sized tasks.
 
-Assume the implementer is capable, but lacks project context and may not make good decomposition or testing decisions without explicit guidance.
+Assume the worker executing the plan is capable, but lacks project context and may not make good decomposition or testing decisions without explicit guidance.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
@@ -35,7 +35,7 @@ You MUST complete these in order:
 4. **Decompose into tasks** — each task should be small, testable, and logically self-contained
 5. **Write task steps** — exact file paths, code, commands, and expected outputs
 6. **Write plan header and architecture summary** — clear enough for a fresh worker to execute
-7. **Review the written plan** — dispatch `spec-reviewer` with focused plan-review context only
+7. **Review the written plan** — dispatch `reviewer` with the spec-reviewer prompt and focused plan-review context only
 8. **Offer execution handoff** — `/skill:subagent-driven-development` or `/skill:executing-plans`
 
 ## Scope Check
@@ -153,7 +153,7 @@ git commit -m "feat: add specific feature"
 
 After writing the complete plan:
 
-1. Dispatch the `spec-reviewer` subagent with focused review context only
+1. Dispatch the `reviewer` subagent with the spec-reviewer prompt and focused review context only
 2. Provide:
    - path to the plan document
    - path to the spec/design document

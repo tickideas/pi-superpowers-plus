@@ -1,6 +1,6 @@
 # Implementer Subagent Prompt Template
 
-Use this template when dispatching an implementer subagent.
+Use this template when dispatching a `worker` subagent for implementation work.
 
 ```
 Dispatch a subagent with this prompt:

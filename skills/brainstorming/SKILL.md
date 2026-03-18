@@ -39,7 +39,7 @@ You MUST complete these in order:
 7. **Propose 2-3 approaches** — include trade-offs and your recommendation
 8. **Present design in sections** — get confirmation after each section
 9. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-10. **Review the written design** — dispatch `spec-reviewer` with focused context only
+10. **Review the written design** — dispatch `reviewer` with the spec-reviewer prompt and focused context only
 11. **User reviews written spec** — wait for approval or requested changes
 12. **Transition to implementation planning** — invoke `/skill:writing-plans`
 
@@ -76,8 +76,9 @@ digraph brainstorming {
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
     "Write design doc" [shape=box];
-    "Dispatch spec-reviewer" [shape=box];
-    "Spec approved?" [shape=diamond];
+    "Dispatch reviewer
+(spec-reviewer prompt)" [shape=box];
+    "Reviewer approves spec?" [shape=diamond];
     "User reviews written spec" [shape=diamond];
     "Invoke writing-plans" [shape=doublecircle];
 
@@ -97,10 +98,12 @@ digraph brainstorming {
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Dispatch spec-reviewer";
-    "Dispatch spec-reviewer" -> "Spec approved?";
-    "Spec approved?" -> "Write design doc" [label="no, revise"];
-    "Spec approved?" -> "User reviews written spec" [label="yes"];
+    "Write design doc" -> "Dispatch reviewer
+(spec-reviewer prompt)";
+    "Dispatch reviewer
+(spec-reviewer prompt)" -> "Reviewer approves spec?";
+    "Reviewer approves spec?" -> "Write design doc" [label="no, revise"];
+    "Reviewer approves spec?" -> "User reviews written spec" [label="yes"];
     "User reviews written spec" -> "Write design doc" [label="changes requested"];
     "User reviews written spec" -> "Invoke writing-plans" [label="approved"];
 }
@@ -216,7 +219,7 @@ Write the validated design to:
 
 After writing the design doc:
 
-1. Dispatch the `spec-reviewer` subagent
+1. Dispatch the `reviewer` subagent using the spec-reviewer prompt
 2. Give it only the focused review context it needs:
    - path to the spec
    - relevant requirements/design goal
@@ -229,7 +232,7 @@ After writing the design doc:
 
 ### User Review Gate
 
-After the spec-reviewer approves, ask the user to review the written spec before proceeding:
+After the reviewer approves the spec, ask the user to review the written spec before proceeding:
 
 > "Spec written to `docs/plans/<filename>-design.md`. Please review it and let me know if you want any changes before I write the implementation plan."
 

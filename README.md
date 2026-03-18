@@ -257,28 +257,30 @@ Skills are markdown files the agent reads to learn *what* to do. Extensions are 
 | Run tests before claiming done | `verification-before-completion` | Verification gate warns on commit/push/PR |
 | Follow workflow phases | All skills cross-reference each other | Workflow tracker detects phases, prompts at boundaries |
 | Dispatch implementation work | `subagent-driven-development` | Subagent extension spawns isolated agents |
-| Review before merge | `requesting-code-review` | Subagent dispatches code-reviewer agent |
+| Review before merge | `requesting-code-review` | Subagent dispatches reviewer with the code-reviewer prompt |
 The orchestrating agent's enforcement is advisory (warnings injected into tool results).
 
 ## Subagent Dispatch
 
 A bundled `subagent` tool lets the orchestrating agent spawn isolated subprocess agents for implementation and review tasks. No external dependencies required.
 
-### Bundled Agents
+### Recommended Agent Mapping
 
-| Agent | Purpose | Tools | Extensions |
-|-------|---------|-------|------------|
-| `implementer` | Strict TDD implementation | read, write, edit, bash, lsp | — |
-| `worker` | General-purpose task execution | read, write, edit, bash, lsp | — |
-| `code-reviewer` | Production readiness review | read, bash (read-only) | — |
-| `spec-reviewer` | Plan/spec compliance check | read, bash (read-only) | — |
+When using pi's `subagent` workflow, the skills assume these agent names:
+
+| Agent | Purpose | Prompt / Role |
+|-------|---------|---------------|
+| `worker` | Implementation work | implementation prompt / implementer role |
+| `worker` | General-purpose isolated task execution | `worker` role |
+| `reviewer` | Production readiness review | code-reviewer prompt / role |
+| `reviewer` | Plan/spec compliance review | spec-reviewer prompt / role |
 
 Agent definitions live in `agents/*.md` and use YAML frontmatter to declare tools, model, extensions, and a system prompt body.
 
 ### Single Agent
 
 ```ts
-subagent({ agent: "implementer", task: "Implement the retry logic per docs/plans/retry-plan.md Task 3" })
+subagent({ agent: "worker", task: "Implement the retry logic per docs/plans/retry-plan.md Task 3" })
 ```
 
 ### Parallel Tasks
@@ -339,10 +341,10 @@ Based on [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent, po
 ```
 pi-superpowers-plus/
 ├── agents/                            # Bundled agent definitions (4 agents)
-│   ├── implementer.md                 # Strict TDD implementation agent
+│   ├── implementer.md                 # Implementation prompt / bundled role definition
 │   ├── worker.md                      # General-purpose task agent
-│   ├── code-reviewer.md               # Production readiness reviewer
-│   └── spec-reviewer.md               # Plan/spec compliance reviewer
+│   ├── code-reviewer.md               # Review prompt / bundled role definition
+│   └── spec-reviewer.md               # Spec review prompt / bundled role definition
 ├── extensions/
 │   ├── logging.ts                     # File-based diagnostic logger (10KB truncation, time-based rotation)
 │   ├── plan-tracker.ts                # Task tracking tool + TUI widget
