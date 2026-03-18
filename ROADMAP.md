@@ -4,16 +4,16 @@ This roadmap is **directional** (not a promise). Priorities may shift based on r
 
 - Shipped changes: see [CHANGELOG.md](./CHANGELOG.md)
 - Detailed plans/notes: see [docs/plans/](./docs/plans/)
-- **Questions/support:** [GitHub Discussions](https://github.com/coctostan/pi-superpowers-plus/discussions)
-- **Bugs & feature requests:** [GitHub Issues](https://github.com/coctostan/pi-superpowers-plus/issues/new/choose)
+- **Questions/support:** [GitHub Discussions](https://github.com/tickideas/pi-superpowers-plus/discussions)
+- **Bugs & feature requests:** [GitHub Issues](https://github.com/tickideas/pi-superpowers-plus/issues/new/choose)
 
 ## Tracking links
 
-- [Discussions (questions/support)](https://github.com/coctostan/pi-superpowers-plus/discussions)
-- [New issue (bug/feature)](https://github.com/coctostan/pi-superpowers-plus/issues/new/choose)
-- [Open bugs](https://github.com/coctostan/pi-superpowers-plus/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
-- [Confirmed bugs](https://github.com/coctostan/pi-superpowers-plus/issues?q=is%3Aissue+is%3Aopen+label%3Abug+label%3Aconfirmed)
-- [Enhancements](https://github.com/coctostan/pi-superpowers-plus/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+- [Discussions (questions/support)](https://github.com/tickideas/pi-superpowers-plus/discussions)
+- [New issue (bug/feature)](https://github.com/tickideas/pi-superpowers-plus/issues/new/choose)
+- [Open bugs](https://github.com/tickideas/pi-superpowers-plus/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
+- [Confirmed bugs](https://github.com/tickideas/pi-superpowers-plus/issues?q=is%3Aissue+is%3Aopen+label%3Abug+label%3Aconfirmed)
+- [Enhancements](https://github.com/tickideas/pi-superpowers-plus/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
 ## Tags
 

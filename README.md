@@ -37,7 +37,7 @@ pi install npm:pi-superpowers-plus
 Or from git:
 
 ```bash
-pi install git:github.com/coctostan/pi-superpowers-plus
+pi install git:github.com/tickideas/pi-superpowers-plus
 ```
 
 Or add to `.pi/settings.json` (project-level) or `~/.pi/agent/config.json` (global):
@@ -52,9 +52,9 @@ No configuration required. Skills and extensions activate automatically.
 
 ## Support
 
-- Questions / support: https://github.com/coctostan/pi-superpowers-plus/discussions
-- Bugs: https://github.com/coctostan/pi-superpowers-plus/issues/new/choose
-- Feature requests: https://github.com/coctostan/pi-superpowers-plus/issues/new/choose
+- Questions / support: https://github.com/tickideas/pi-superpowers-plus/discussions
+- Bugs: https://github.com/tickideas/pi-superpowers-plus/issues/new/choose
+- Feature requests: https://github.com/tickideas/pi-superpowers-plus/issues/new/choose
 - Roadmap: [`ROADMAP.md`](ROADMAP.md)
 - Contributing: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
