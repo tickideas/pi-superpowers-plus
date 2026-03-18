@@ -9,6 +9,19 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **Fork metadata cleanup** — package/repository metadata, README install instructions, support links, contributing docs, roadmap links, and GitHub issue templates now point to `tickideas/pi-superpowers-plus` instead of the original fork source.
+
+### Changed
+
+- **Workflow skill guidance refreshed** — updated `brainstorming`, `writing-plans`, `subagent-driven-development`, `executing-plans`, `systematic-debugging`, and `verification-before-completion` with a selective sync of newer upstream workflow guidance while preserving pi-specific behavior.
+- **Subagent naming aligned with pi** — workflow docs and prompt templates now assume pi-style agent names:
+  - `worker` for implementation work
+  - `reviewer` for spec compliance review
+  - `reviewer` for code quality review
+  Prompt templates remain the specialization layer.
+
 ### Removed
 
 - **`tdd-guard` extension** — TDD enforcement is now handled via runtime warnings in `workflow-monitor` and three-scenario TDD instructions embedded in agent profiles and skill text. Agent profiles no longer need `extensions: ../extensions/tdd-guard.ts` in their frontmatter.
