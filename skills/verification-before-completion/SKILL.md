@@ -52,9 +52,20 @@ Skip any step = lying, not verifying
 | Linter clean | Linter output: 0 errors | Partial check, extrapolation |
 | Build succeeds | Build command: exit 0 | Linter passing, logs look good |
 | Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle or equivalent verified evidence | Test passes once |
-| Agent completed | VCS diff + independent verification | Agent reports "success" |
+| Regression test works | Red-green cycle verified | Test passes once |
+| Agent completed | VCS diff shows changes | Agent reports "success" |
 | Requirements met | Line-by-line checklist | Tests passing |
+
+## Red Flags — STOP
+
+- Using "should", "probably", or "seems to"
+- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
+- About to commit/push/PR without verification
+- Trusting agent success reports without checking outputs yourself
+- Relying on partial verification
+- Thinking "just this once"
+- Being tired and wanting the work to be over
+- **ANY wording that implies success without having run verification**
 
 ## Rationalization Prevention
 
@@ -68,17 +79,6 @@ Skip any step = lying, not verifying
 | "I'm tired" | Exhaustion ≠ excuse |
 | "Partial check is enough" | Partial proves nothing |
 | "Different words so rule doesn't apply" | Spirit over letter |
-
-## Red Flags — STOP
-
-- using "should", "probably", or "seems to"
-- expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- about to commit/push/PR without verification
-- trusting agent success reports without checking outputs yourself
-- relying on partial verification
-- thinking "just this once"
-- being tired and wanting the work to be over
-- ANY wording that implies success without fresh evidence
 
 ## Key Patterns
 

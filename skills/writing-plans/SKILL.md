@@ -35,7 +35,7 @@ You MUST complete these in order:
 4. **Decompose into tasks** — each task should be small, testable, and logically self-contained
 5. **Write task steps** — exact file paths, code, commands, and expected outputs
 6. **Write plan header and architecture summary** — clear enough for a fresh worker to execute
-7. **Review the written plan** — dispatch `reviewer` with the spec-reviewer prompt and focused plan-review context only
+7. **Self-review the written plan** — inline check for spec coverage, placeholders, type consistency (see below)
 8. **Offer execution handoff** — `/skill:subagent-driven-development` or `/skill:executing-plans`
 
 ## Scope Check
@@ -105,7 +105,7 @@ If the plan exceeds roughly 8 substantial tasks, consider splitting into phases 
 
 **Why this task exists:** [One short paragraph describing the responsibility and how it fits the whole plan]
 
-**Step 1: Write the failing test**
+- [ ] **Step 1: Write the failing test**
 
 ```python
 def test_specific_behavior():
@@ -113,24 +113,24 @@ def test_specific_behavior():
     assert result == expected
 ```
 
-**Step 2: Run test to verify it fails**
+- [ ] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/path/test.py::test_name -v`
 Expected: FAIL with "function not defined"
 
-**Step 3: Write minimal implementation**
+- [ ] **Step 3: Write minimal implementation**
 
 ```python
 def function(input):
     return expected
 ```
 
-**Step 4: Run test to verify it passes**
+- [ ] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/path/test.py::test_name -v`
 Expected: PASS
 
-**Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add tests/path/test.py src/path/file.py
@@ -138,10 +138,20 @@ git commit -m "feat: add specific feature"
 ```
 ```
 
+## No Placeholders
+
+Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
+- "TBD", "TODO", "implement later", "fill in details"
+- "Add appropriate error handling" / "add validation" / "handle edge cases"
+- "Write tests for the above" (without actual test code)
+- "Similar to Task N" (repeat the code — the engineer may be reading tasks out of order)
+- Steps that describe what to do without showing how (code blocks required for code steps)
+- References to types, functions, or methods not defined in any task
+
 ## Planning Rules
 
 - Exact file paths always
-- Complete code in the plan, not vague instructions like "add validation"
+- Complete code in every step — if a step changes code, show the code
 - Exact commands with expected output
 - Reference relevant skills with `/skill:` syntax
 - Order tasks so each task's dependencies are completed by earlier tasks
@@ -149,23 +159,15 @@ git commit -m "feat: add specific feature"
 - Be explicit about migrations, rollout sequencing, or data backfills when relevant
 - Avoid speculative work — YAGNI applies to plans too
 
-## Plan Review Loop
+## Plan Self-Review
 
-After writing the complete plan:
+After writing the complete plan, review it with fresh eyes:
 
-1. Dispatch the `reviewer` subagent with the spec-reviewer prompt and focused review context only
-2. Provide:
-   - path to the plan document
-   - path to the spec/design document
-   - what the plan is intended to implement
-   - any specific concerns to scrutinize
-3. Do NOT pass your session history
-4. If issues are found:
-   - fix the plan
-   - re-dispatch reviewer for the whole plan
-5. If the review loop exceeds 3 iterations, stop and surface the issue to the user
+1. **Spec coverage** — does every requirement in the spec have a corresponding task?
+2. **Placeholder scan** — search for TBD, TODO, vague instructions, or references to undefined types
+3. **Type consistency** — are all types, functions, and interfaces used in later tasks defined in earlier tasks?
 
-Reviewers are advisory. If you disagree with feedback, explain why instead of silently ignoring it.
+Fix issues inline immediately. This catches the same class of bugs as a full subagent review loop in ~30 seconds instead of ~25 minutes.
 
 ## Execution Handoff
 

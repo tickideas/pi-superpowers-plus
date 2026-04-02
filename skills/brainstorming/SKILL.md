@@ -39,7 +39,7 @@ You MUST complete these in order:
 7. **Propose 2-3 approaches** — include trade-offs and your recommendation
 8. **Present design in sections** — get confirmation after each section
 9. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-10. **Review the written design** — dispatch `reviewer` with the spec-reviewer prompt and focused context only
+10. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 11. **User reviews written spec** — wait for approval or requested changes
 12. **Transition to implementation planning** — invoke `/skill:writing-plans`
 
@@ -76,9 +76,7 @@ digraph brainstorming {
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
     "Write design doc" [shape=box];
-    "Dispatch reviewer
-(spec-reviewer prompt)" [shape=box];
-    "Reviewer approves spec?" [shape=diamond];
+    "Spec self-review\n(fix inline)" [shape=box];
     "User reviews written spec" [shape=diamond];
     "Invoke writing-plans" [shape=doublecircle];
 
@@ -98,12 +96,8 @@ digraph brainstorming {
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Dispatch reviewer
-(spec-reviewer prompt)";
-    "Dispatch reviewer
-(spec-reviewer prompt)" -> "Reviewer approves spec?";
-    "Reviewer approves spec?" -> "Write design doc" [label="no, revise"];
-    "Reviewer approves spec?" -> "User reviews written spec" [label="yes"];
+    "Write design doc" -> "Spec self-review\n(fix inline)";
+    "Spec self-review\n(fix inline)" -> "User reviews written spec";
     "User reviews written spec" -> "Write design doc" [label="changes requested"];
     "User reviews written spec" -> "Invoke writing-plans" [label="approved"];
 }
@@ -215,28 +209,24 @@ Write the validated design to:
 - Save the full approved design, not just notes
 - Commit the design document if the workflow calls for committing planning artifacts
 
-### Written Spec Review Loop
+### Spec Self-Review
 
-After writing the design doc:
+After writing the spec document, review it with fresh eyes:
 
-1. Dispatch the `reviewer` subagent using the spec-reviewer prompt
-2. Give it only the focused review context it needs:
-   - path to the spec
-   - relevant requirements/design goal
-   - any specific review concerns
-3. Do NOT pass your session history
-4. If issues are found:
-   - fix the spec
-   - re-dispatch review
-5. If review loops more than 3 times, stop and surface the issue to the user
+1. **Placeholder scan** — search for TBD, TODO, "fill in later", or any incomplete section
+2. **Internal consistency** — check that requirements don't contradict each other
+3. **Scope check** — verify the spec is focused enough for a single implementation plan
+4. **Ambiguity check** — flag any requirement that could be interpreted two different ways
+
+Fix issues inline immediately. This takes ~30 seconds and catches the same class of bugs that a full subagent review loop would, without the 25-minute overhead.
 
 ### User Review Gate
 
-After the reviewer approves the spec, ask the user to review the written spec before proceeding:
+After the self-review, ask the user to review the written spec before proceeding:
 
 > "Spec written to `docs/plans/<filename>-design.md`. Please review it and let me know if you want any changes before I write the implementation plan."
 
-Wait for approval. If the user requests changes, update the spec and re-run the review loop.
+Wait for approval. If the user requests changes, update the spec.
 
 ### Transition to implementation
 
