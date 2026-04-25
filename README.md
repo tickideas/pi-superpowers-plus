@@ -321,6 +321,8 @@ System prompt body here.
 
 Based on [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent, ported to pi as [pi-superpowers](https://github.com/coctostan/pi-superpowers), then extended with active enforcement.
 
+For maintainers: see [docs/upstream-sync.md](docs/upstream-sync.md) and `scripts/check-upstream.sh` for the routine to check `obra/superpowers` for changes worth mirroring into this fork.
+
 | | [Superpowers](https://github.com/obra/superpowers) | [pi-superpowers](https://github.com/coctostan/pi-superpowers) | **pi-superpowers-plus** |
 |---|---|---|---|
 | **Platform** | Claude Code | pi | pi |
