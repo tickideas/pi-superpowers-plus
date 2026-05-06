@@ -3,8 +3,6 @@ name: executing-plans
 description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
 ---
 
-> **Related skills:** Need an isolated workspace? `/skill:using-git-worktrees`. Verify each task with `/skill:verification-before-completion`. Done? `/skill:finishing-a-development-branch`.
-
 # Executing Plans
 
 Load a written plan, review it critically, execute tasks in batches, and report back for review between batches.
@@ -125,12 +123,3 @@ Do not force progress through a plan that no longer makes sense.
 - Never start implementation on main/master without explicit user consent
 - TDD is the default for production code: verify fail → implement minimal change → verify pass
 
-## Integration
-
-**Required workflow skills:**
-- **`/skill:using-git-worktrees`** — Recommended: set up isolated workspace before starting. For small changes, branching in the current directory is acceptable with user approval.
-- **`/skill:writing-plans`** — Creates the plan this skill executes
-- **`/skill:finishing-a-development-branch`** — Complete development after all tasks
-
-**Alternative workflow:**
-- **`/skill:subagent-driven-development`** — Prefer this when the work is a better fit for per-task isolated subagents in the current session

@@ -3,8 +3,6 @@ name: requesting-code-review
 description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
 ---
 
-> **Related skills:** Before requesting review, verify with `/skill:verification-before-completion` that tests pass.
-
 # Requesting Code Review
 
 Dispatch the `reviewer` subagent with the code-reviewer prompt template to catch issues before they cascade.
