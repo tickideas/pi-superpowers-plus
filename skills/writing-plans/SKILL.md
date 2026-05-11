@@ -3,8 +3,6 @@ name: writing-plans
 description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
-> **Related skills:** Did you `/skill:brainstorming` first? Ready to implement? Use `/skill:executing-plans` or `/skill:subagent-driven-development`.
-
 # Writing Plans
 
 Write comprehensive implementation plans assuming the engineer has zero context for the codebase and questionable taste. Document everything they need: which files to touch, what each file is responsible for, complete code where needed, tests to write, commands to run, and how to verify success. Plans should be DRY, YAGNI, TDD-oriented, and broken into bite-sized tasks.

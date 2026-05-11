@@ -12,10 +12,14 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - **Fork metadata cleanup** — package/repository metadata, README install instructions, support links, contributing docs, roadmap links, and GitHub issue templates now point to `tickideas/pi-superpowers-plus` instead of the original fork source.
+- **Worktree rototill (PRI-974, upstream PR #1121)** — `using-git-worktrees` and `finishing-a-development-branch` rewritten to detect-and-defer to native harness worktree tools when present, with a manual `git worktree` fallback. New Step 0 detection (`GIT_DIR != GIT_COMMON`) skips creation when already in a linked worktree (with submodule guard). Cleanup is now provenance-based — only superpowers-created worktrees under `.worktrees/`, `worktrees/`, or `~/.config/superpowers/worktrees/` are removed; harness-owned workspaces are left alone.
+- **Detached HEAD menu** in `finishing-a-development-branch` — reduced 3-option menu (no merge) when working from an externally managed detached HEAD.
+- **Continuous execution directive** in `subagent-driven-development` — fixes upstream's pause-every-3-tasks bug. Orchestrators now execute all tasks without check-in prompts unless BLOCKED.
 
 ### Changed
 
 - **Workflow skill guidance refreshed** — updated `brainstorming`, `writing-plans`, `subagent-driven-development`, `executing-plans`, `systematic-debugging`, and `verification-before-completion` with a selective sync of newer upstream workflow guidance while preserving pi-specific behavior.
+- **Upstream sync to `obra/superpowers` v5.1.0** (`f2cbfbe`) — mirrored worktree skill rewrites, SDD continuous-execution fix, root-cause-tracing path placeholder. Removed deprecated `> Related skills:` callouts and the `## Integration` section from skills that picked them up. Preserved fork-specific elements: `worker` / `reviewer` named-subagent dispatch, three-scenario TDD policy, `plan_tracker` integration, batch checkpoint model in `executing-plans`, `agents/code-reviewer.md` persona file, and `Step 1.5: Documentation and Learnings` in `finishing-a-development-branch`.
 - **Subagent naming aligned with pi** — workflow docs and prompt templates now assume pi-style agent names:
   - `worker` for implementation work
   - `reviewer` for spec compliance review

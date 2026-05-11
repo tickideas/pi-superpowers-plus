@@ -18,8 +18,8 @@ cd "$REPO_ROOT"
 
 # Last upstream commit considered during the most recent mirror.
 # Update this hash after each sync. (This is an obra/main commit, not a fork commit.)
-# Last update: 2026-04-02 sync (fork commit dff9fb3) — upstream HEAD was b7a8f76.
-DEFAULT_ANCHOR="b7a8f76"
+# Last update: 2026-05 sync — upstream HEAD was f2cbfbe (Release v5.1.0).
+DEFAULT_ANCHOR="f2cbfbe"
 
 if ! git remote get-url obra >/dev/null 2>&1; then
   echo "error: 'obra' remote not configured." >&2

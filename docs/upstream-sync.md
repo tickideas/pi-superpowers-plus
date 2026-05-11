@@ -28,10 +28,12 @@ git fetch obra --quiet
 git log obra/main --oneline --since="<date-of-last-sync>"
 ```
 
-The current "last sync" anchor is the **upstream commit** `b7a8f76`
-— that was `obra/main` HEAD when this fork's `dff9fb3` was made on
-2026-04-02 ("feat(skills): incorporate upstream improvements from
-obra/superpowers").
+The current "last sync" anchor is the **upstream commit** `f2cbfbe`
+(`obra/superpowers` Release v5.1.0). That was `obra/main` HEAD during the
+2026-05 mirror, which brought in the worktree rototill (PRI-974), the SDD
+continuous-execution fix, the root-cause-tracing path placeholder, and
+removal of deprecated `> Related skills:` callouts / `## Integration`
+sections from skills.
 
 After bringing in upstream changes, bump the anchor in two places:
 
