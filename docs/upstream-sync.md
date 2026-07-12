@@ -91,6 +91,12 @@ When mirroring, preserve fork-specific details:
 - subagent names: `worker` (implementation), `reviewer` (spec + code review)
 - TDD policy: three scenarios (new feature → full TDD; modifying tested
   code → run tests before/after; trivial change → judgment)
+- `skills/subagent-driven-development/scripts/` carries two local patches
+  vs upstream (marked with "Local fork patch" comments): `task-brief`'s
+  awk matcher (excludes fractional siblings like `Task 1.5` when
+  extracting Task 1; stops at non-task headings) and `review-package`'s
+  `--end-of-options` on rev-parse. Re-apply or reconcile these when
+  mirroring upstream script changes.
 
 ## After mirroring
 

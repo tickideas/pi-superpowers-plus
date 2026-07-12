@@ -9,9 +9,8 @@ more, nothing less) and is well-built (clean, tested, maintainable)
 
 ```
 subagent({ agent: "reviewer", model: [MODEL], task: <prompt below> })
-  description: "Review Task N (spec + quality)"
-  model: [MODEL — REQUIRED: choose per SKILL.md Model Selection; an omitted
-         model falls back to the agent definition's default]
+# [MODEL] is REQUIRED: choose per SKILL.md Model Selection; an omitted
+# model falls back to the agent definition's default.
   prompt: |
     You are reviewing one task's implementation: first whether it matches its
     requirements, then whether it is well-built. This is a task-scoped gate,

@@ -4,9 +4,8 @@ Use this template when dispatching a `worker` subagent for implementation work.
 
 ```
 subagent({ agent: "worker", model: [MODEL], task: <prompt below> })
-  description: "Implement Task N: [task name]"
-  model: [MODEL — REQUIRED: choose per SKILL.md Model Selection; an omitted
-         model falls back to the agent definition's default]
+# [MODEL] is REQUIRED: choose per SKILL.md Model Selection; an omitted
+# model falls back to the agent definition's default.
   prompt: |
     You are implementing Task N: [task name]
 
