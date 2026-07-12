@@ -12,7 +12,7 @@ Dispatch the `reviewer` subagent with the code-reviewer prompt template to catch
 ## When to Request Review
 
 **Mandatory:**
-- After each task in subagent-driven development
+- Final whole-branch review in subagent-driven development (per-task reviews use that skill's task-reviewer prompt)
 - After completing major feature
 - Before merge to main
 
@@ -25,9 +25,11 @@ Dispatch the `reviewer` subagent with the code-reviewer prompt template to catch
 
 **1. Get git SHAs:**
 ```bash
-BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
+BASE_SHA=$(git merge-base main HEAD)  # or the commit you recorded before the work — not HEAD~1, which drops all but the last commit
 HEAD_SHA=$(git rev-parse HEAD)
 ```
+
+For large ranges, hand the reviewer the diff as a file instead of letting it re-derive it: run `skills/subagent-driven-development/scripts/review-package BASE HEAD` and include the printed path in the dispatch.
 
 **2. Dispatch reviewer subagent:**
 
@@ -38,7 +40,7 @@ Fill the template at `code-reviewer.md` in this skill directory, then dispatch a
 Use the `subagent` tool with the code-reviewer template filled in and `agent: "reviewer"`:
 
 ```ts
-subagent({ agent: "reviewer", task: "... filled template ..." })
+subagent({ agent: "reviewer", model: "<most capable available for whole-branch reviews>", task: "... filled template ..." })
 ```
 
 **Placeholders:**
@@ -85,9 +87,9 @@ You: [Fix progress indicators]
 ## Integration with Workflows
 
 **Subagent-Driven Development:**
-- Review after EACH task
-- Catch issues before they compound
-- Fix before moving to next task
+- Per-task reviews use that skill's task-reviewer prompt (spec + quality in one pass)
+- This skill's template is the final whole-branch review, dispatched on the most capable model
+- If it returns findings, dispatch ONE fix subagent with the complete list
 
 **Executing Plans:**
 - Uses human review between batches — dispatched code review is optional

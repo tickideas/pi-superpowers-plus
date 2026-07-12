@@ -270,10 +270,10 @@ When using pi's `subagent` workflow, the skills assume these agent names:
 
 | Agent | Purpose | Prompt / Role |
 |-------|---------|---------------|
-| `worker` | Implementation work | implementation prompt / implementer role |
+| `worker` | Implementation work | implementer prompt / `worker` role |
 | `worker` | General-purpose isolated task execution | `worker` role |
-| `reviewer` | Production readiness review | code-reviewer prompt / role |
-| `reviewer` | Plan/spec compliance review | spec-reviewer prompt / role |
+| `reviewer` | Per-task review (spec compliance + code quality) | task-reviewer prompt / `code-reviewer` role |
+| `reviewer` | Final whole-branch review | code-reviewer prompt / `code-reviewer` role |
 
 Agent definitions live in `agents/*.md` and use YAML frontmatter to declare tools, model, extensions, and a system prompt body.
 
@@ -342,11 +342,10 @@ For maintainers: see [docs/upstream-sync.md](docs/upstream-sync.md) and `scripts
 
 ```
 pi-superpowers-plus/
-├── agents/                            # Bundled agent definitions (4 agents)
+├── agents/                            # Bundled agent definitions (3 agents)
 │   ├── implementer.md                 # Implementation prompt / bundled role definition
 │   ├── worker.md                      # General-purpose task agent
-│   ├── code-reviewer.md               # Review prompt / bundled role definition
-│   └── spec-reviewer.md               # Spec review prompt / bundled role definition
+│   └── code-reviewer.md               # Review role (task review + whole-branch review)
 ├── extensions/
 │   ├── logging.ts                     # File-based diagnostic logger (10KB truncation, time-based rotation)
 │   ├── plan-tracker.ts                # Task tracking tool + TUI widget

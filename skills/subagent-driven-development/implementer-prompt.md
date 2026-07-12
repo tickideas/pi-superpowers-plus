@@ -3,14 +3,16 @@
 Use this template when dispatching a `worker` subagent for implementation work.
 
 ```
-Dispatch a subagent with this prompt:
-  description: "Implement Task N: [task name]"
+subagent({ agent: "worker", model: [MODEL], task: <prompt below> })
+# [MODEL] is REQUIRED: choose per SKILL.md Model Selection; an omitted
+# model falls back to the agent definition's default.
   prompt: |
     You are implementing Task N: [task name]
 
     ## Task Description
 
-    [FULL TEXT of task from plan - paste it here, don't make subagent read file]
+    Read your task brief first: [BRIEF_FILE]
+    It contains the full task text from the plan.
 
     ## Context
 
@@ -43,6 +45,9 @@ Dispatch a subagent with this prompt:
 
     **While you work:** If you encounter something unexpected or unclear, **ask questions**.
     It's always OK to pause and clarify. Don't guess or make assumptions.
+
+    While iterating, run the focused test for what you're changing; run the
+    full suite once before committing, not after every edit.
 
     ## Code Organization
 
@@ -94,23 +99,42 @@ Dispatch a subagent with this prompt:
     - Did I follow existing patterns in the codebase?
 
     **Testing:**
-    - Did I follow the appropriate TDD scenario for this task?
-    - For new code: did I write a failing test first?
-    - For modified code: did I run existing tests before and after my change?
     - Do tests actually verify behavior (not just mock behavior)?
+    - Did I follow the right TDD scenario for this task?
     - Are tests comprehensive?
+    - Is the test output pristine (no stray warnings or noise)?
 
     If you find issues during self-review, fix them now before reporting.
 
+    ## After Review Findings
+
+    If a reviewer finds issues and you fix them, re-run the tests that cover
+    the amended code and append the results to your report file. Reviewers
+    will not re-run tests for you — your report is the test evidence.
+
     ## Report Format
 
-    When done, report:
-    - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
+    Write your full report to [REPORT_FILE]:
     - What you implemented (or what you attempted, if blocked)
     - What you tested and test results
+    - **TDD Evidence** (if the full-TDD scenario applied to this task):
+      - RED: command run, relevant failing output before implementation, and why the failure was expected
+      - GREEN: command run and relevant passing output after implementation
+      (For the modifying-tested-code scenario: before/after test run results instead.)
     - Files changed
     - Self-review findings (if any)
     - Any issues or concerns
+
+    Then report back with ONLY (under 15 lines — the detail lives in the
+    report file):
+    - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
+    - Commits created (short SHA + subject)
+    - One-line test summary (e.g. "14/14 passing, output pristine")
+    - Your concerns, if any
+    - The report file path
+
+    If BLOCKED or NEEDS_CONTEXT, put the specifics in the final message
+    itself — the controller acts on it directly.
 
     Use DONE_WITH_CONCERNS if you completed the work but have doubts about correctness.
     Use BLOCKED if you cannot complete the task. Use NEEDS_CONTEXT if you need

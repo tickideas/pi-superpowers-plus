@@ -9,6 +9,20 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed (upstream sync v6.1.1, phase B — SDD v6 rework)
+
+- **`subagent-driven-development` rebuilt on upstream's eval-tuned v6 design** (upstream e08ad06 through caf14aa), preserving fork deltas (`worker`/`reviewer` dispatch, three-scenario TDD, `plan_tracker`, ask-before-final-phase checkpoint, "When a Subagent Fails"):
+  - **Merged task reviewer** — spec compliance + code quality in ONE review pass per task with two verdicts. `spec-reviewer-prompt.md` and `code-quality-reviewer-prompt.md` replaced by `task-reviewer-prompt.md`.
+  - **File handoffs** — new `scripts/task-brief`, `scripts/review-package`, and `scripts/sdd-workspace`; task briefs, implementer reports, and review diffs move as files under `.superpowers/sdd/` instead of pasted text.
+  - **Durable progress ledger** — `.superpowers/sdd/progress.md` survives compaction; checked at skill start, appended per completed task; kept alongside `plan_tracker`.
+  - **Model discipline** — explicit `model` required on every dispatch; turn-count-beats-token-price guidance; cheapest tier for transcription tasks; final review pinned to the most capable model.
+  - **Reviewer-prompt hygiene** — no pre-judging findings; verbatim Global Constraints as the reviewer's attention lens; recorded BASE (never `HEAD~1`); ⚠️ cannot-verify verdict channel; plan-mandated defects escalate to the human; one fixer for final-review findings.
+  - **Implementer prompt** — TDD RED/GREEN evidence (adapted to the fork's three scenarios), report-to-file with <15-line return, focused tests while iterating.
+- **`agents/spec-reviewer.md` removed** — the merged task reviewer needs one reviewer role; `agents/code-reviewer.md` broadened to cover task review (spec + quality) and whole-branch review. README agent mapping updated.
+- **`requesting-code-review`** — repositioned as the final whole-branch review in SDD (per-task reviews use the task-reviewer prompt); merge-base guidance replaces `HEAD~1`; optional review-package handoff.
+- **`.gitignore`** — ignore `.superpowers/` (SDD working-tree scratch).
+- **Anchor bumped to `d884ae0`** (v6.1.1) in `scripts/check-upstream.sh` and `docs/upstream-sync.md` — the full scoped range is now mirrored.
+
 ### Changed (upstream sync v6.1.1, phase A)
 
 - **Upstream sync to `obra/superpowers` v6.1.1** (`d884ae0`), phases 1–3 of the scoped plan (`docs/plans/2026-07-12-sync-v6.1.1-scope.md`):
