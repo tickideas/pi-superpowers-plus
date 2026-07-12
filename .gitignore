@@ -3,3 +3,6 @@ node_modules/
 # KotaDB local storage
 .kotadb/
 .pi/superpowers-state.json
+
+# SDD working-tree scratch (briefs, reports, review packages, progress ledger)
+.superpowers/

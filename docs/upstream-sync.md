@@ -28,12 +28,14 @@ git fetch obra --quiet
 git log obra/main --oneline --since="<date-of-last-sync>"
 ```
 
-The current "last sync" anchor is the **upstream commit** `f2cbfbe`
-(`obra/superpowers` Release v5.1.0). That was `obra/main` HEAD during the
-2026-05 mirror, which brought in the worktree rototill (PRI-974), the SDD
-continuous-execution fix, the root-cause-tracing path placeholder, and
-removal of deprecated `> Related skills:` callouts / `## Integration`
-sections from skills.
+The current "last sync" anchor is the **upstream commit** `d884ae0`
+(`obra/superpowers` Release v6.1.1). That was `obra/main` HEAD during the
+2026-07 mirror (PRs #2 and #3), which brought in the SDD v6 rework (merged
+task reviewer, file handoffs via `scripts/`, progress ledger, model
+discipline), writing-plans task right-sizing / Global Constraints /
+Interfaces blocks, the just-in-time visual companion offer, and assorted
+small fixes. See `docs/plans/2026-07-12-sync-v6.1.1-scope.md` for the full
+phase breakdown and preserved fork deltas.
 
 After bringing in upstream changes, bump the anchor in two places:
 
