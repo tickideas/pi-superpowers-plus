@@ -219,7 +219,7 @@ Watch for feedback like:
 - "Is that not happening?" → you assumed instead of verifying
 - "Will it show us...?" → you need evidence gathering
 - "Stop guessing" → you are proposing fixes without understanding
-- "Ultrathink this" → question the deeper pattern, not just symptoms
+- "Ultra-think this" → question the deeper pattern, not just symptoms
 - "We're stuck?" → your current approach is not producing learning
 
 When you hear those signals, stop and return to investigation.
