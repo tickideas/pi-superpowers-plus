@@ -9,10 +9,23 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed (upstream sync v6.1.1, phase A)
+
+- **Upstream sync to `obra/superpowers` v6.1.1** (`d884ae0`), phases 1–3 of the scoped plan (`docs/plans/2026-07-12-sync-v6.1.1-scope.md`):
+  - `writing-plans` — new **Task Right-Sizing** section, **Global Constraints** header in the plan template, and per-task **Interfaces** (Consumes/Produces) blocks (upstream 8e1262a).
+  - `requesting-code-review` — square-bracket placeholders and an explicit read-only review boundary in the reviewer template (upstream 3cd2db9, 8ed7c49).
+  - `brainstorming` — visual companion is now offered just-in-time, not upfront; no re-offer after a decline (upstream 5a0f895).
+  - `using-git-worktrees` — removed legacy `~/.config/superpowers/worktrees/` fallback; fixed step numbering (upstream d00f4ad, ce95985).
+  - `finishing-a-development-branch` — platform-neutral PR creation (no `gh`-specific heredoc); global worktree path dropped from the cleanup allowlist (upstream 24ae4c8, 4e3707f, d00f4ad).
+  - `receiving-code-review` — Circle K signal replaced with honest push-back guidance (upstream 0fad59e).
+  - `systematic-debugging` — `Ultrathink` → `Ultra-think` keyword defusal (upstream 90e1721).
+  - `test-driven-development` — markdown link to `testing-anti-patterns.md` (upstream 9ea7e2b). No TDD policy change; the fork's three-scenario model is untouched.
+  - Phase 4 (SDD v6 rework: merged task reviewer, file handoffs, progress ledger, model discipline) is scoped but deferred to a follow-up PR.
+
 ### Added
 
 - **Fork metadata cleanup** — package/repository metadata, README install instructions, support links, contributing docs, roadmap links, and GitHub issue templates now point to `tickideas/pi-superpowers-plus` instead of the original fork source.
-- **Worktree rototill (PRI-974, upstream PR #1121)** — `using-git-worktrees` and `finishing-a-development-branch` rewritten to detect-and-defer to native harness worktree tools when present, with a manual `git worktree` fallback. New Step 0 detection (`GIT_DIR != GIT_COMMON`) skips creation when already in a linked worktree (with submodule guard). Cleanup is now provenance-based — only superpowers-created worktrees under `.worktrees/`, `worktrees/`, or `~/.config/superpowers/worktrees/` are removed; harness-owned workspaces are left alone.
+- **Worktree rototill (PRI-974, upstream PR #1121)** — `using-git-worktrees` and `finishing-a-development-branch` rewritten to detect-and-defer to native harness worktree tools when present, with a manual `git worktree` fallback. New Step 0 detection (`GIT_DIR != GIT_COMMON`) skips creation when already in a linked worktree (with submodule guard). Cleanup is now provenance-based — only superpowers-created worktrees under `.worktrees/`, `worktrees/`, or `~/.config/superpowers/worktrees/` are removed; harness-owned workspaces are left alone. (The legacy `~/.config/superpowers/worktrees/` path was subsequently dropped by the v6.1.1 sync above.)
 - **Detached HEAD menu** in `finishing-a-development-branch` — reduced 3-option menu (no merge) when working from an externally managed detached HEAD.
 - **Continuous execution directive** in `subagent-driven-development` — fixes upstream's pause-every-3-tasks bug. Orchestrators now execute all tasks without check-in prompts unless BLOCKED.
 

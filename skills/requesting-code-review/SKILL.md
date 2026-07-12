@@ -42,11 +42,11 @@ subagent({ agent: "reviewer", task: "... filled template ..." })
 ```
 
 **Placeholders:**
-- `{WHAT_WAS_IMPLEMENTED}` - What you just built
-- `{PLAN_OR_REQUIREMENTS}` - What it should do
-- `{BASE_SHA}` - Starting commit
-- `{HEAD_SHA}` - Ending commit
-- `{DESCRIPTION}` - Brief summary
+- `[WHAT_WAS_IMPLEMENTED]` - What you just built
+- `[PLAN_OR_REQUIREMENTS]` - What it should do
+- `[BASE_SHA]` - Starting commit
+- `[HEAD_SHA]` - Ending commit
+- `[DESCRIPTION]` - Brief summary
 
 **3. Act on feedback:**
 - Fix Critical issues immediately

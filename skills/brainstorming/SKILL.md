@@ -34,7 +34,7 @@ You MUST complete these in order:
 2. **Confirm workspace safety** — if on `main`/`master`, detached HEAD, or a branch with unrelated uncommitted work, discuss before proceeding
 3. **Explore project context** — inspect files, docs, and existing patterns
 4. **Assess scope** — if the request is too large for one spec, decompose into sub-projects first
-5. **Offer visual companion** (if upcoming questions are meaningfully visual) — this must be its own message
+5. **Offer the visual companion just-in-time** (floating — not a fixed sequence point) — NOT upfront. The first time a question would genuinely be clearer shown than described, offer it then (its own message). If no visual question ever arises, never offer it. See the Visual Companion section below.
 6. **Ask clarifying questions** — one at a time
 7. **Propose 2-3 approaches** — include trade-offs and your recommendation
 8. **Present design in sections** — get confirmation after each section
@@ -69,8 +69,6 @@ digraph brainstorming {
     "Explore project context" [shape=box];
     "Project too large for one spec?" [shape=diamond];
     "Decompose into sub-projects" [shape=box];
-    "Visual questions ahead?" [shape=diamond];
-    "Offer visual companion\n(own message only)" [shape=box];
     "Ask clarifying questions\n(one at a time)" [shape=box];
     "Propose 2-3 approaches" [shape=box];
     "Present design sections" [shape=box];
@@ -86,11 +84,8 @@ digraph brainstorming {
     "Workspace safe?" -> "Explore project context" [label="yes"];
     "Explore project context" -> "Project too large for one spec?";
     "Project too large for one spec?" -> "Decompose into sub-projects" [label="yes"];
-    "Decompose into sub-projects" -> "Visual questions ahead?";
-    "Project too large for one spec?" -> "Visual questions ahead?" [label="no"];
-    "Visual questions ahead?" -> "Offer visual companion\n(own message only)" [label="yes"];
-    "Visual questions ahead?" -> "Ask clarifying questions\n(one at a time)" [label="no"];
-    "Offer visual companion\n(own message only)" -> "Ask clarifying questions\n(one at a time)";
+    "Decompose into sub-projects" -> "Ask clarifying questions\n(one at a time)";
+    "Project too large for one spec?" -> "Ask clarifying questions\n(one at a time)" [label="no"];
     "Ask clarifying questions\n(one at a time)" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Present design sections";
     "Present design sections" -> "User approves design?";
@@ -251,11 +246,11 @@ Do NOT jump directly into implementation.
 
 A browser-based companion can help with mockups, layouts, diagrams, and side-by-side comparisons. It is optional and should only be offered when it would materially improve understanding.
 
-If upcoming questions are visual, offer it once using its own message only:
+**Offer it just-in-time, NOT upfront.** Wait until a question would genuinely be clearer shown than told — a real mockup / layout / diagram question, not merely a UI *topic*. The first time that happens, offer it then, as its own message:
 
-> "Some of what we're working on might be easier to explain if I can show it to you in a web browser. I can put together mockups, diagrams, comparisons, and other visuals as we go. This feature is still new and can be token-intensive. Want to try it? (Requires opening a local URL)"
+> "This next part might be easier if I show you — I can put together mockups, diagrams, and comparisons in a browser tab as we go. It's still new and can be token-intensive. Want me to? (Requires opening a local URL)"
 
-This offer MUST be a standalone message. Do not combine it with clarifying questions or summaries.
+This offer MUST be a standalone message. Do not combine it with clarifying questions or summaries. If the user declines, continue text-only and don't offer again unless they raise it.
 
 Even if the user accepts, decide per question whether visuals are actually helpful:
 - use visuals for mockups, wireframes, layouts, diagrams, visual comparisons
