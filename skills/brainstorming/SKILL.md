@@ -34,7 +34,7 @@ You MUST complete these in order:
 2. **Confirm workspace safety** — if on `main`/`master`, detached HEAD, or a branch with unrelated uncommitted work, discuss before proceeding
 3. **Explore project context** — inspect files, docs, and existing patterns
 4. **Assess scope** — if the request is too large for one spec, decompose into sub-projects first
-5. **Offer the visual companion just-in-time** — NOT upfront. The first time a question would genuinely be clearer shown than described, offer it then (its own message). If no visual question ever arises, never offer it. See the Visual Companion section below.
+5. **Offer the visual companion just-in-time** (floating — not a fixed sequence point) — NOT upfront. The first time a question would genuinely be clearer shown than described, offer it then (its own message). If no visual question ever arises, never offer it. See the Visual Companion section below.
 6. **Ask clarifying questions** — one at a time
 7. **Propose 2-3 approaches** — include trade-offs and your recommendation
 8. **Present design in sections** — get confirmation after each section
